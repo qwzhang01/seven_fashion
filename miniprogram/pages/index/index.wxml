@@ -1,0 +1,92 @@
+<!-- 首页：衣橱 + 上传 + 搭配 -->
+<view class="page-container">
+
+  <!-- ======== 顶部 Banner ======== -->
+  <view class="hero-section">
+    <view class="hero-content">
+      <text class="hero-emoji">✨</text>
+      <view class="hero-text">
+        <text class="hero-title">搭搭 AI 穿搭助手</text>
+        <text class="hero-subtitle">拍照建衣橱，AI 帮你搭出每日穿搭</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ======== 拍照上传按钮 ======== -->
+  <view class="upload-section" bind:tap="goToUpload">
+    <view class="upload-btn">
+      <text class="upload-icon">📷</text>
+      <view class="upload-text">
+        <text class="upload-title">拍照添加衣物</text>
+        <text class="upload-desc">AI 自动识别类型、颜色、风格</text>
+      </view>
+      <text class="upload-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- ======== 衣橱区域 ======== -->
+  <view class="wardrobe-section">
+    <view class="section-header">
+      <text class="section-title">👗 我的衣橱</text>
+      <text class="section-count" wx:if="{{wardrobeList.length > 0}}">{{wardrobeList.length}} 件</text>
+    </view>
+
+    <!-- 衣橱为空 -->
+    <empty-state
+      wx:if="{{!loading && wardrobeList.length === 0}}"
+      icon="🏪"
+      title="衣橱空空如也～"
+      desc="拍几张衣服照片，AI 帮你建数字衣橱"
+      btnText="📷 立即添加"
+      bind:action="goToUpload"
+    />
+
+    <!-- 衣物网格 -->
+    <view wx:if="{{wardrobeList.length > 0}}" class="wardrobe-grid">
+      <clothing-card
+        wx:for="{{wardrobeList}}"
+        wx:key="id"
+        item="{{item}}"
+        selectable="{{selectMode}}"
+        selected="{{item._selected}}"
+        bind:tap="onClothingTap"
+        data-index="{{index}}"
+      />
+    </view>
+  </view>
+
+  <!-- ======== 加载状态 ======== -->
+  <view wx:if="{{loading}}" class="loading-section">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">加载衣橱中...</text>
+  </view>
+
+  <!-- ======== 底部操作区 ======== -->
+  <view wx:if="{{wardrobeList.length >= 2}}" class="bottom-actions">
+    <!-- 选择模式切换 -->
+    <view wx:if="{{!selectMode}}" class="action-row">
+      <view class="recommend-btn" bind:tap="goRecommend">
+        <text class="recommend-icon">🪄</text>
+        <text class="recommend-text">AI 帮我搭配</text>
+      </view>
+      <view class="select-btn" bind:tap="toggleSelectMode">
+        <text>选择衣物搭配</text>
+      </view>
+    </view>
+
+    <!-- 选择模式下的操作 -->
+    <view wx:if="{{selectMode}}" class="action-row">
+      <view class="cancel-btn" bind:tap="toggleSelectMode">
+        <text>取消</text>
+      </view>
+      <view class="recommend-btn {{selectedCount < 2 ? 'disabled' : ''}}" bind:tap="goRecommendSelected">
+        <text class="recommend-icon">🪄</text>
+        <text class="recommend-text">搭配已选 ({{selectedCount}}件)</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部安全区占位 -->
+  <view class="bottom-safe" wx:if="{{wardrobeList.length >= 2}}"></view>
+
+</view>

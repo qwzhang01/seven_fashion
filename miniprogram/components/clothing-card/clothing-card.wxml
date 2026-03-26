@@ -1,0 +1,26 @@
+<!-- 衣物卡片组件 -->
+<view class="clothing-card {{selected ? 'selected' : ''}}" bind:tap="onTap">
+  <!-- 衣物图片 -->
+  <view class="card-image-wrapper">
+    <image
+      class="card-image"
+      src="{{imageUrl}}"
+      mode="aspectFill"
+      lazy-load
+    />
+    <!-- 选中勾选 -->
+    <view wx:if="{{selectable && selected}}" class="check-badge">✓</view>
+  </view>
+
+  <!-- 衣物信息 -->
+  <view class="card-info">
+    <view class="card-category">
+      <text class="category-emoji">{{emoji}}</text>
+      <text class="category-text">{{item.category}}</text>
+    </view>
+    <view class="card-tags">
+      <text class="color-dot" style="background:{{colorDot}}"></text>
+      <text class="card-color">{{item.color}}</text>
+    </view>
+  </view>
+</view>

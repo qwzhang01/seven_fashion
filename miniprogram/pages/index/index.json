@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "搭搭 StyleMate",
+  "usingComponents": {
+    "clothing-card": "/components/clothing-card/clothing-card",
+    "empty-state": "/components/empty-state/empty-state"
+  }
+}

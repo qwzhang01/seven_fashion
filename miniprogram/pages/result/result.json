@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "AI 搭配方案",
+  "usingComponents": {
+    "outfit-card": "/components/outfit-card/outfit-card",
+    "empty-state": "/components/empty-state/empty-state"
+  }
+}

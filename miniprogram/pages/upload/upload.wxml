@@ -1,0 +1,117 @@
+<!-- 上传衣物页面 -->
+<view class="page-container">
+
+  <!-- ======== 步骤一：选择图片 ======== -->
+  <view wx:if="{{step === 'choose'}}" class="choose-section">
+    <view class="choose-header">
+      <text class="choose-emoji">📸</text>
+      <text class="choose-title">拍一张你的衣物</text>
+      <text class="choose-desc">AI 会自动识别类型、颜色和风格</text>
+    </view>
+
+    <view class="choose-actions">
+      <view class="choose-btn camera-btn" bind:tap="takePhoto">
+        <text class="btn-icon">📷</text>
+        <text class="btn-label">拍照</text>
+      </view>
+      <view class="choose-btn album-btn" bind:tap="chooseFromAlbum">
+        <text class="btn-icon">🖼️</text>
+        <text class="btn-label">从相册选择</text>
+      </view>
+    </view>
+
+    <view class="choose-tips">
+      <text class="tips-title">📌 拍照小贴士</text>
+      <view class="tips-list">
+        <text class="tip-item">• 衣物平铺或挂起拍摄效果最好</text>
+        <text class="tip-item">• 背景尽量简洁干净</text>
+        <text class="tip-item">• 光线充足，避免逆光</text>
+        <text class="tip-item">• 一次拍一件衣物</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ======== 步骤二：AI 识别中 ======== -->
+  <view wx:if="{{step === 'recognizing'}}" class="recognizing-section">
+    <view class="preview-image-wrapper">
+      <image class="preview-image" src="{{tempImagePath}}" mode="aspectFit" />
+      <view class="recognizing-overlay">
+        <view class="scan-line"></view>
+      </view>
+    </view>
+
+    <view class="recognizing-info">
+      <view class="recognizing-spinner"></view>
+      <text class="recognizing-text">🧠 AI 正在识别衣物...</text>
+      <text class="recognizing-sub">识别类型、颜色、风格、季节</text>
+    </view>
+  </view>
+
+  <!-- ======== 步骤三：识别结果 ======== -->
+  <view wx:if="{{step === 'result'}}" class="result-section">
+    <!-- 衣物图片 -->
+    <view class="result-image-wrapper">
+      <image class="result-image" src="{{resultImageUrl}}" mode="aspectFit" />
+    </view>
+
+    <!-- 识别结果卡片 -->
+    <view class="result-card">
+      <text class="result-card-title">✅ AI 识别完成</text>
+
+      <view class="result-item">
+        <text class="result-label">类型</text>
+        <text class="result-value">{{result.category}}{{result.sub_category ? ' · ' + result.sub_category : ''}}</text>
+      </view>
+
+      <view class="result-item">
+        <text class="result-label">颜色</text>
+        <view class="result-value color-value">
+          <text class="color-dot" style="background: {{colorDot}}"></text>
+          <text>{{result.color}}</text>
+        </view>
+      </view>
+
+      <view class="result-item">
+        <text class="result-label">风格</text>
+        <text class="result-value tag-value">{{result.style}}</text>
+      </view>
+
+      <view wx:if="{{result.season}}" class="result-item">
+        <text class="result-label">季节</text>
+        <text class="result-value">{{result.season}}</text>
+      </view>
+
+      <view wx:if="{{result.ai_description}}" class="result-desc">
+        <text class="desc-icon">💬</text>
+        <text class="desc-text">{{result.ai_description}}</text>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="result-actions">
+      <view class="action-btn-primary" bind:tap="confirmAdd">
+        <text>✅ 添加到衣橱</text>
+      </view>
+      <view class="action-btn-secondary" bind:tap="retake">
+        <text>🔄 重新拍摄</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ======== 添加成功 ======== -->
+  <view wx:if="{{step === 'success'}}" class="success-section">
+    <text class="success-emoji">🎉</text>
+    <text class="success-title">添加成功！</text>
+    <text class="success-desc">衣物已加入你的数字衣橱</text>
+
+    <view class="success-actions">
+      <view class="action-btn-primary" bind:tap="continueAdd">
+        <text>📷 继续添加</text>
+      </view>
+      <view class="action-btn-secondary" bind:tap="goBack">
+        <text>👀 返回衣橱</text>
+      </view>
+    </view>
+  </view>
+
+</view>

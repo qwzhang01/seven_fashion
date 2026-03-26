@@ -1,0 +1,82 @@
+.clothing-card {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.25s ease;
+  border: 3rpx solid transparent;
+}
+
+.clothing-card.selected {
+  border-color: #FF6B6B;
+  box-shadow: 0 4rpx 20rpx rgba(255, 107, 107, 0.2);
+  transform: scale(0.97);
+}
+
+.card-image-wrapper {
+  width: 100%;
+  height: 220rpx;
+  position: relative;
+  background: #F9F9F9;
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+}
+
+.check-badge {
+  position: absolute;
+  top: 8rpx;
+  right: 8rpx;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  background: #FF6B6B;
+  color: #FFFFFF;
+  font-size: 22rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.card-info {
+  padding: 14rpx 16rpx 16rpx;
+}
+
+.card-category {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6rpx;
+}
+
+.category-emoji {
+  font-size: 26rpx;
+  margin-right: 6rpx;
+}
+
+.category-text {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #333333;
+}
+
+.card-tags {
+  display: flex;
+  align-items: center;
+}
+
+.color-dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  margin-right: 8rpx;
+  flex-shrink: 0;
+}
+
+.card-color {
+  font-size: 22rpx;
+  color: #888888;
+}

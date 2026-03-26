@@ -1,0 +1,44 @@
+<!-- 搭配方案卡片 -->
+<view class="outfit-card fade-in-up" style="animation-delay: {{index * 0.1}}s">
+  <!-- 方案标题 -->
+  <view class="outfit-header">
+    <text class="outfit-number">方案 {{index + 1}}</text>
+    <view class="outfit-tags">
+      <text wx:for="{{outfit.style_tags}}" wx:key="*this" class="tag tag-primary">
+        #{{item}}
+      </text>
+    </view>
+  </view>
+
+  <!-- 衣物拼图 -->
+  <view class="outfit-items">
+    <view
+      wx:for="{{itemImages}}"
+      wx:key="id"
+      class="outfit-item-thumb"
+    >
+      <image class="thumb-image" src="{{item.url}}" mode="aspectFill" />
+      <text class="thumb-label">{{item.category}}</text>
+    </view>
+  </view>
+
+  <!-- 搭配说明 -->
+  <view class="outfit-desc">
+    <text class="desc-text">{{outfit.description}}</text>
+  </view>
+
+  <!-- 搭配理由 -->
+  <view wx:if="{{outfit.reason}}" class="outfit-reason">
+    <text class="reason-text">💡 {{outfit.reason}}</text>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="outfit-actions">
+    <view class="action-btn save-btn" bind:tap="onSaveCard">
+      <text>💾 保存卡片</text>
+    </view>
+    <view class="action-btn like-btn {{liked ? 'liked' : ''}}" bind:tap="onLike">
+      <text>{{liked ? '❤️' : '🤍'}} 喜欢</text>
+    </view>
+  </view>
+</view>

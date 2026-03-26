@@ -1,0 +1,59 @@
+<!-- 搭配结果页 -->
+<view class="page-container">
+
+  <!-- ======== 加载中 ======== -->
+  <view wx:if="{{loading}}" class="loading-section">
+    <view class="loading-animation">
+      <text class="loading-emoji">🪄</text>
+      <view class="loading-particles">
+        <text class="particle" style="animation-delay: 0s">✨</text>
+        <text class="particle" style="animation-delay: 0.3s">💫</text>
+        <text class="particle" style="animation-delay: 0.6s">⭐</text>
+      </view>
+    </view>
+    <text class="loading-title">AI 正在搭配中...</text>
+    <text class="loading-desc">从你的衣橱中寻找最佳组合</text>
+    <view class="loading-progress">
+      <view class="progress-bar"></view>
+    </view>
+  </view>
+
+  <!-- ======== 搭配结果 ======== -->
+  <view wx:if="{{!loading && outfits.length > 0}}" class="result-section">
+    <view class="result-header">
+      <text class="result-title">✨ AI 为你搭配了 {{outfits.length}} 套方案</text>
+      <text class="result-subtitle">觉得不错的话，保存卡片分享到朋友圈吧～</text>
+    </view>
+
+    <!-- 搭配方案列表 -->
+    <outfit-card
+      wx:for="{{outfits}}"
+      wx:key="id"
+      outfit="{{item}}"
+      index="{{index}}"
+      bind:like="onOutfitLike"
+    />
+
+    <!-- 底部操作 -->
+    <view class="bottom-actions">
+      <view class="refresh-btn" bind:tap="refreshRecommend">
+        <text>🔄 换一批搭配</text>
+      </view>
+      <view class="back-btn" bind:tap="goBack">
+        <text>👗 返回衣橱</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ======== 错误/空状态 ======== -->
+  <view wx:if="{{!loading && error}}" class="error-section">
+    <empty-state
+      icon="😅"
+      title="搭配遇到了问题"
+      desc="{{errorMsg}}"
+      btnText="🔄 重试"
+      bind:action="refreshRecommend"
+    />
+  </view>
+
+</view>
